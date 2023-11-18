@@ -1,6 +1,9 @@
 const express = require("express");
 const app = express();
-const quotes = require('./quotes.json')
+const quotes = require('./quotes.json');
+const userRouter = require("./Routes/userROutes");
+
+app.use("/users",userRouter);
 
 
 app.get('/',(req,res)=>{
