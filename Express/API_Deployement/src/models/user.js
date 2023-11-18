@@ -6,13 +6,13 @@ const userSchema = mongoose.Schema({
         required:true
     },
 
-    description:{
+    password:{
         type:String,
         required:true
     },
 
-    userID:{
-        type:mongoose.Schema.Types.ObjectId,
+    email:{
+       type:String,
         required:true
     }
 },{timestamps:true});

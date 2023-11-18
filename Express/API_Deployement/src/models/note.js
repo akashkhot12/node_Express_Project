@@ -6,13 +6,14 @@ const noteSchema = mongoose.Schema({
         required:true
     },
 
-    password:{
+    description:{
         type:String,
         required:true
     },
 
-    email:{
-        type:String,
+    userID:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:"user",
         required:true
     }
 },{timestamps:true});
