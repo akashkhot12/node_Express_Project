@@ -5,7 +5,7 @@ const userRouter = require("./Routes/userROutes");
 const noteRouter = require("./Routes/notesRoutes");
 
 app.use("/users",userRouter);
-app.use("/notes",noteRouter)
+app.use("/note",noteRouter)
 
 app.get('/',(req,res)=>{
     res.send("hello");
