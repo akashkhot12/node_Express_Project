@@ -2,9 +2,10 @@ const express = require("express");
 const app = express();
 const quotes = require('./quotes.json');
 const userRouter = require("./Routes/userROutes");
+const noteRouter = require("./Routes/notesRoutes");
 
 app.use("/users",userRouter);
-
+app.use("/notes",noteRouter)
 
 app.get('/',(req,res)=>{
     res.send("hello");
