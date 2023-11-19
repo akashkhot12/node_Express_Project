@@ -3,11 +3,14 @@ const app = express();
 const userRouter = require("./Routes/userROutes");
 const noteRouter = require("./Routes/notesRoutes");
 const mongoose = require("mongoose")
+
+app.use(express.json());
+
 app.use("/users", userRouter);
 app.use("/note", noteRouter);
 
 
-app.use(express.json());
+
 
 app.get("/", (req, res) => {
   res.send("hello");
