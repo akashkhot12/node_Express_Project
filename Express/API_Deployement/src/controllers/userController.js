@@ -19,7 +19,8 @@ const signup = async(req,res)=>{
             username:username 
         });
 
-        const token = jwt.sign( )
+        const token = jwt.sign({email:result.email,id:result._id},SECRET_KEY);
+        res.status(201).json
 
     } catch (error) {
         
