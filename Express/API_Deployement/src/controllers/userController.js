@@ -11,6 +11,12 @@ const signup = async(req,res)=>{
 
         const hashedPassword = await bcrypt.hash(password,10);
 
+        const result = await userModels.create({
+            email:email,
+            password:hashedPassword,
+            username:username 
+        })
+
     } catch (error) {
         
     }
