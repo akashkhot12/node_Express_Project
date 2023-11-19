@@ -6,6 +6,8 @@ const mongoose = require("mongoose")
 app.use("/users", userRouter);
 app.use("/note", noteRouter);
 
+app.use(express.json());
+
 app.get("/", (req, res) => {
   res.send("hello");
 });
