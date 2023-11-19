@@ -22,4 +22,6 @@ mongoose
       console.log("server is started");
     });
   })
-  .catch((error) => {});
+  .catch((error) => {
+    console.log("not working");
+  });
