@@ -1,4 +1,4 @@
-let x = 121;
+let x = "aka";
 
 let y  = x.toString().split("").reverse().join("");
 
@@ -8,3 +8,5 @@ if (x==y) {
 else{
     console.log("false");
 }
+
+
