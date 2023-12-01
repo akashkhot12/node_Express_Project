@@ -1,6 +1,6 @@
 const express = require("express");
-const auth = require("../middlewares/auth")
 const { getNote, createNote, deleteNote, updateNote } = require("../controllers/noteController");
+const auth = require("../middlewares/auth")
 const noteRouter = express.Router();
 
 noteRouter.get('/',auth,getNote);
