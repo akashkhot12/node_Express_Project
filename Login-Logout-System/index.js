@@ -3,7 +3,7 @@ const app = express();
 
 app.set("view engine",'ejs')
 app.get('/',(req,res)=>{
-   res.render('base',{tittle:"Login System"})
+   res.render('base',{title:"Login System"})
 })
 
 app.listen(5000,()=>{
