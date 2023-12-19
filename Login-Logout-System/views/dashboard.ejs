@@ -2,11 +2,15 @@
 
 <section class="vh-100" style="background-color: #5f59f7">
   <div class="container py-5 h-100">
+    
     <div class="row d-flex justify-content-center align-items-center h-100">
       <div class="col col-xl-10" id="login">
-        <h3>Welcome to Express Dashboard <span><a href="/route/Logout">Logout</a></span></h3>
-        <h5><%= locals.user?user:"User"%></h5>
-            
+        <div class="col text-end">
+            <a href="/route/Logout" class="btn btn-danger btn-lg float-right">Logout</a>
+          </div>
+          <br>
+        <h3>Welcome to Express Dashboard</h3>
+        <br>
         <div class="card mb-5" style="border-radius: 15px">
           <div class="card-body p-4">
             <h3 class="mb-3">Program Title</h3>
@@ -30,20 +34,6 @@
                 <span class="text-muted small">program link</span>
                 <span class="ms-3 me-4">|</span>
               </p>
-              <a href="#!">
-                <img
-                  src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/avatar-2.webp"
-                  alt="avatar"
-                  class="img-fluid rounded-circle me-3"
-                  width="35"
-                />
-              </a>
-              <button
-                type="button"
-                class="btn btn-outline-dark btn-sm btn-floating"
-              >
-                <i class="fas fa-plus"></i>
-              </button>
             </div>
           </div>
         </div>
@@ -71,44 +61,7 @@
                 <span class="text-muted small">program link</span>
                 <span class="ms-3 me-4">|</span>
               </p>
-              <a href="#!">
-                <img
-                  src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/avatar-2.webp"
-                  alt="avatar"
-                  class="img-fluid rounded-circle me-1"
-                  width="35"
-                />
-              </a>
-              <a href="#!">
-                <img
-                  src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/avatar-3.webp"
-                  alt="avatar"
-                  class="img-fluid rounded-circle me-1"
-                  width="35"
-                />
-              </a>
-              <a href="#!">
-                <img
-                  src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/avatar-4.webp"
-                  alt="avatar"
-                  class="img-fluid rounded-circle me-1"
-                  width="35"
-                />
-              </a>
-              <a href="#!">
-                <img
-                  src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/avatar-5.webp"
-                  alt="avatar"
-                  class="img-fluid rounded-circle me-3"
-                  width="35"
-                />
-              </a>
-              <button
-                type="button"
-                class="btn btn-outline-dark btn-sm btn-floating"
-              >
-                <i class="fas fa-plus"></i>
-              </button>
+              
             </div>
           </div>
         </div>
