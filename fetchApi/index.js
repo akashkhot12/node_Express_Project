@@ -10,7 +10,7 @@ app.get('/fetchData',async(req,res)=>{
     try {
         let response  = await axios.get('https://api.publicapis.org/entries')
         let data = response.data
-        res.send(data)
+        res.json(data)
     } catch (error) {
         console.error('Error fetching data:', error.message);
     res.status(500).json({ error: 'Internal Server Error' });
