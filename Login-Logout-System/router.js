@@ -11,11 +11,22 @@ const credetials = {
 router.post('/login',(req,res)=>{
 if (req.body.email=credetials.email&&req.body.password==credetials.password) {
     req.session.user = req.body.email
-    res.end("login successfull")
+    res.redirect('/route/dashboard')
+    // res.end("login successfull")
 }
 else{
 res.end("invalid username")
 }
+})
+
+// routes for dashboards
+
+router.get('/dashboard',(req,res)=>{
+    if (req.session.user) {
+        res.render('dashboard',{user:req.session.user})
+    } else {
+        res.send("Unauthorize User")
+    }
 })
 
 module.exports = router;
