@@ -1,7 +1,9 @@
 const express = require('express');
 const app = express();
 
-app.set("view engine",'ejs')
+app.set("view engine",'ejs');
+
+// home route
 app.get('/',(req,res)=>{
    res.render('base',{title:"Login System"})
 })
