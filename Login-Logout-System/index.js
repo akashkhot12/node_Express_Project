@@ -4,6 +4,7 @@ const bodyParser = require('body-parser')
 const session = require("express-session");
 
 const {v4:uuidv4}=require("uuid")
+const router = require('./router')
 
 const app = express();
 
@@ -19,6 +20,8 @@ app.use(session({
     resave:false,
     saveUninitialized:true
 }));
+
+app.use('/route',router)
 
 
 
