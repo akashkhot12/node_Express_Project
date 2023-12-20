@@ -21,7 +21,7 @@ router.post("/login", (req, res) => {
   }
 });
 
-// routes for dashboards user 
+// routes for dashboards user
 
 router.get("/dashboard", (req, res) => {
   if (req.session.user) {
