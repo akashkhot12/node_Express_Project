@@ -1,0 +1,34 @@
+{
+    "courses": [
+      {
+        "courseCode": "CSCI101",
+        "courseName": "Introduction to Computer Science",
+        "instructor": "Dr. Smith",
+        "credits": 3
+      },
+      {
+        "courseCode": "MATH201",
+        "courseName": "Calculus I",
+        "instructor": "Prof. Johnson",
+        "credits": 4
+      },
+      {
+        "courseCode": "ENG102",
+        "courseName": "English Composition",
+        "instructor": "Ms. Davis",
+        "credits": 3
+      },
+      {
+        "courseCode": "PHYS202",
+        "courseName": "Physics for Engineers",
+        "instructor": "Dr. Anderson",
+        "credits": 4
+      },
+      {
+        "courseCode": "HIST101",
+        "courseName": "World History",
+        "instructor": "Prof. Martinez",
+        "credits": 3
+      }
+    ]
+}
