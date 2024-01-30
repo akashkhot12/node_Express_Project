@@ -41,7 +41,23 @@ router.get('/movies' , async (req , res)=>{
             .in({...genre})
             .sort(sortBy)
             .skip(page = limit)
+            .limit(limit)
 
+
+            const total = await Movie.countDocuments({
+                genre:{$in:[...genre]},
+                name:{$regex:search,$options:"i"}
+            })
+
+            const response = {
+                error:false,
+                total,
+                page:page+1,
+                limit,
+                genres:genreOptions,
+                movies
+            };
+            res.status(200).json(response)
 
     } catch (error) {
         console.log(error);
