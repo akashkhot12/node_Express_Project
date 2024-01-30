@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const Movie = require("../models/Movie");
+const Movie = require("../model/movie");
 const movies = require("../config/movies.json");
 
 router.get("/movies", async (req, res) => {
