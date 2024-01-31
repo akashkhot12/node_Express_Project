@@ -1,9 +1,10 @@
 const express = require("express");
 const router = express.Router();
-const data = require("./data.json");
 
-router.get('/getdata',async(req,res)=>{
-    res.send(data)
+const jsonData  = require("./data.json")
+
+router.get("/",(req,res)=>{
+res.json(jsonData);
 })
 
-module.exports = router
+module.exports = router;
