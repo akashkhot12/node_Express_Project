@@ -4,8 +4,7 @@ const express = require('express');
 
 
 router.get('/',(req,res)=>{
-    res.send("hello world")
+res.render('index')
  })
 
-
-module.exports  = router
+module.exports  = router;
