@@ -3,8 +3,12 @@ const express = require('express');
 
 
 
-router.get('/',(req,res)=>{
-res.render('index')
+router.get('',(req,res)=>{
+    const locals = {
+        title:"Node JS Blog",
+        Description:"Simple Blog Created with Node Js, Express Js, Mongo DB "
+    }
+res.render('index',{locals})
  })
 
 module.exports  = router;
