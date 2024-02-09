@@ -16,7 +16,8 @@ body {
   font-family: 'Poppins', sans-serif;
   color: var(--black);
   font-size: var(--font-size-base);
-  background-color: #FFE4C9;
+  background-color: #FAF5EE;
+  background-image: url("/img/img-noise-361x370.png");
   margin: 0;
 }
 
@@ -57,10 +58,8 @@ textarea {
 
 
 img {
-  width: 90%;
+  width: 100%;
   height: auto;
-  align-items: center;
-  margin-left: 50px;
 }
 
 /* Layout */
@@ -339,4 +338,3 @@ img {
 .pagination:hover {
   color: var(--black);
 }
-

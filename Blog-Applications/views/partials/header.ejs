@@ -1,24 +1,29 @@
 <header class="header">
-    <a href="/" class="header__logo">Node js</a>
-    <nav class="header__nav">
-        <ul>
-            <li>
-                <a href="/">Home</a>
-            </li>
-            <li>
-                <a href="/about">About</a>
-            </li>
-            <li>
-                <a href="/contact">Contact</a>
-            </li>
-           
-        </ul>
-    </nav>
+  <a href="/" class="header__logo">NodeJs</a>
 
-    <dic class="header__button">
-        <button class="searcbtn" aria-expanded="false">
-            Search
-            <svg style="height: 15px;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="search"><g data-name="Layer 2"><path d="m20.71 19.29-3.4-3.39A7.92 7.92 0 0 0 19 11a8 8 0 1 0-8 8 7.92 7.92 0 0 0 4.9-1.69l3.39 3.4a1 1 0 0 0 1.42 0 1 1 0 0 0 0-1.42zM5 11a6 6 0 1 1 6 6 6 6 0 0 1-6-6z" data-name="search"></path></g></svg>
-        </button>
-    </dic>
+  <nav class="header__nav">
+    <ul>
+      <li>
+        <a href="/" class="<%= isActiveRoute('/', currentRoute) %>">Home</a>
+      </li>
+      <li>
+        <a href="/about" class="<%= isActiveRoute('/about', currentRoute) %>">About</a>
+      </li>
+      <li>
+        <a href="/contact" class="<%= isActiveRoute('/contact', currentRoute) %>">Contact</a>
+      </li>
+    </ul>
+
+  </nav>
+
+  <div class="header__button">
+    <button class="searchBtn" aria-expanded="false">
+      Search
+      <svg width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M7.79167 13.4583C10.9213 13.4583 13.4583 10.9213 13.4583 7.79167C13.4583 4.66205 10.9213 2.125 7.79167 2.125C4.66205 2.125 2.125 4.66205 2.125 7.79167C2.125 10.9213 4.66205 13.4583 7.79167 13.4583Z" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M14.875 14.875L11.7938 11.7938" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </button>
+  </div>
+
 </header>
