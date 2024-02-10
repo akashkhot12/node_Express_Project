@@ -35,13 +35,12 @@ app.post('/signup', async (req, res) => {
     }
 
     // checked user already exist in databse 
-    const existingUser = await collection.findOne({ email: data.name })
+    const existingUser = await collection.findOne({ email: data.email })
 
     if (existingUser) {
         res.send("user already exists");
     }
     else {
-
         // hashed password use methode 
         const saltRounds = 10;
         const hashedPassword = await bcrypt.hash(data.password, saltRounds);
@@ -66,7 +65,7 @@ app.post('/signup', async (req, res) => {
 
         const isPasswordMatch = await bcrypt.compare(req.body.password,check.password)
         if (isPasswordMatch) {
-            res.render("home")
+            res.send("login Successfully")
         }
         else{
              res.send("wrong password")
