@@ -26,6 +26,7 @@ section
   flex-wrap: wrap;
   overflow: hidden;
 }
+
 section::before 
 {
   content: '';
@@ -151,7 +152,7 @@ section .signin .content .form .inputBox i
   font-weight: 600;
 }
 
-#name{
+#email{
     width: 350px;
 }
 .signin .content .form .inputBox input[type="submit"]
