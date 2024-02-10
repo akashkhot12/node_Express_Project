@@ -150,6 +150,10 @@ section .signin .content .form .inputBox i
   color: #0f0;
   font-weight: 600;
 }
+
+#name{
+    width: 350px;
+}
 .signin .content .form .inputBox input[type="submit"]
 {
   padding: 10px;
