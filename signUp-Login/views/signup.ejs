@@ -73,15 +73,26 @@
 
           <form action="/signup" method="post">
             <div class="form">
+                <div class="inputBox">
+                  <input
+                    type="text"
+                    id="name"
+                    name="username"
+                    required
+                    autocomplete="off"
+                  />
+                  <i>Username</i>
+                </div>
+            <div class="form">
               <div class="inputBox">
                 <input
-                  type="text"
-                  id="name"
-                  name="username"
+                  type="email"
+                  id="email"
+                  name="email"
                   required
                   autocomplete="off"
                 />
-                <i>Username</i>
+                <i>email</i>
               </div>
 
               <div class="inputBox">

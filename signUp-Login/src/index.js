@@ -15,8 +15,8 @@ app.get("/",(req,res)=>{
     res.render('login')
 })
 
-app.get('/signup',()=>{
-    res.render('signup')
+app.get("/signup",(req,res)=>{
+    res.render('signup');
 })
 
 
