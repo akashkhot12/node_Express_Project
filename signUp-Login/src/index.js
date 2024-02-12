@@ -39,6 +39,7 @@ app.post('/signup', async (req, res) => {
 
     if (existingUser) {
         res.send("user already exists");
+        res.status(404)
     }
     else {
         // hashed password use methode 
@@ -58,21 +59,25 @@ app.post('/signup', async (req, res) => {
     try{
         const check = await collection.findOne({email:req.body.email});
         if (!check) {
-            res.send("this user cannot found")
+            res.send("this user cannot found");
+            res.status(501)
         }
 
         // compare the hash password from the database with the pain text .
 
         const isPasswordMatch = await bcrypt.compare(req.body.password,check.password)
         if (isPasswordMatch) {
-            res.send("login Successfully")
+            res.send("login Successfully");
+            res.status(201)
         }
         else{
              res.send("wrong password")
+             res.status(501)
         }
     }
     catch{
         res.send("wrong Credentials");
+        res.status(404)
     }
  })
 
