@@ -16,3 +16,5 @@ async function gettingCollections(){
 //         console.log(data);
 //     })
 // });
+
+module.exports = gettingCollections;
