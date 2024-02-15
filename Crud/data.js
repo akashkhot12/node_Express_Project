@@ -19,3 +19,16 @@ const addData = async()=>{
     }
 }
 // addData()
+
+const updateData = async()=>{
+    let data = await dbConnection();
+    let updateDatabase = await data.updateOne({name:"akash khot"},{$set:{name:"chetna bhanarkar"}});
+    if (!updateDatabase) {
+        console.log("data not update ");
+    }
+    else{
+        console.log("data is update");
+    }
+    
+}
+// updateData()
