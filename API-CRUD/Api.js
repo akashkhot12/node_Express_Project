@@ -26,6 +26,19 @@ app.post('/add',async(req,res)=>{
   }
 })
 
+app.put('/edit',async(req,res)=>{
+    let data = await mongodb();
+    let editData = await data.updateOne({name:"akash"},{$set:{name
+    :"chetna"}});
+    res.send(editData).status(301)
+})
+
+app.delete('/delete',async(req,res)=>{
+    let data = await mongodb();
+    let deleteData = await data.deleteOne({name:"chetna"})
+    res.send(deleteData.acknowledged).status(201)
+})
+
 app.listen(5500,()=>{
     console.log("server is running");
 })
