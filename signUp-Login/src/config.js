@@ -3,7 +3,7 @@ const mongoose =  require('mongoose');
 const connect = mongoose.connect("mongodb://localhost:27017/Login-tut");
 
 
-// cheack database connect or not 
+// check database connect or not 
 connect.then(()=>{
     console.log("database connected successfully.");
    
