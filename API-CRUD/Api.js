@@ -19,7 +19,7 @@ app.post('/add',async(req,res)=>{
     gender:"male"  
   })
   if (addData.acknowledged) {
-    res.send("data isernt succefully")
+    res.send("data insert succefully").status(201);
   }
   else{
     res.statusCode(404)
