@@ -15,7 +15,7 @@ const addData = async()=>{
         gender:"male"
     })
     if(adddatabase.acknowledged){
-        console.log("data insert successfully");
+        console.log("data insert swuccessfully");
     }
 }
 // addData()
@@ -32,3 +32,15 @@ const updateData = async()=>{
     
 }
 // updateData()
+
+const deleteData=async()=>{
+    let data = await dbConnection();
+    let deletingData = await data.deleteOne({name:"chetna bhanarkar"});
+    if(!deletingData){
+        console.log("something wrong");
+    }
+    else{
+        console.log("data delete succefully");
+    }
+}
+// deleteData()
