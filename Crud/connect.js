@@ -9,4 +9,4 @@ const connect = async()=>{
     let db = await result.db(database);
     return db.collection("collections");
 }
-connect()
+connect();
