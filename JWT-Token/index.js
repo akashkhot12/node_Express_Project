@@ -22,13 +22,33 @@ app.post('/login',(req,res)=>{
     })
 })
 
-app.post('/profile',verifyingToken,(res,res)=>{
-    
+app.post('/profile',verifyingToken,(req,res)=>{
+jwt.verify(req.token,secreteKey,(err,authdata)=>{
+    if (err) {
+        res.send({
+            result:"invalid token"
+        })
+    } else {
+        res.json({
+            message:"profile accessed",authdata
+        })
+    }
+})
 })
 
 
 function verifyingToken(req,res,next){
-
+const bearerHeader=req.headers['authorization'];
+if (typeof bearerHeader !==undefined ) {
+    const bearer = bearerHeader.split(" ");
+    const token=bearer[1];
+    req.token = token;
+    next()
+} else {
+    res.send({
+        result:"token is not valid"
+    })
+}
 }
 
 app.listen(8000,()=>{
