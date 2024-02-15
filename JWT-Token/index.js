@@ -16,9 +16,15 @@ app.post('/login',(req,res)=>{
         email:"anil@gmail.com"
     }
     jwt.sign({user},secreteKey,{expiresIn:'300s'},(err,token)=>{
+       res.json({
         token
+       })
     })
 })
+
+function verifyingToken(req,res,next){
+    
+}
 
 app.listen(8000,()=>{
     console.log("sserver is start");
