@@ -22,8 +22,13 @@ app.post('/login',(req,res)=>{
     })
 })
 
-function verifyingToken(req,res,next){
+app.post('/profile',verifyingToken,(res,res)=>{
     
+})
+
+
+function verifyingToken(req,res,next){
+
 }
 
 app.listen(8000,()=>{
