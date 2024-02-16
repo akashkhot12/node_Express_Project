@@ -21,11 +21,20 @@ app.post('/addDetails',async(req,res)=>{
     let result = await linkdb();
     const { username, email, password } = req.body;
         try {
+            // email is required
+            if (!req.body.email ) {
+                return res.status(400).json({ error: 'Email is required' });
+            }else if(!req.body.username){
+                return res.status(400).json({ error: 'username is required' });
+            }else if(!req.body.password){
+                return res.status(400).json({ error: 'password is required' });
+            }
             // Check if user with the provided email already exists
             const existingUser = await result.findOne({ email });
             if (existingUser) {
               return res.status(400).json({ error: 'User already exists' });
             }
+            
     
             // Insert the new user
             await result.insertOne({ username, email, password });
