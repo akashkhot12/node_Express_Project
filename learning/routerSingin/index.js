@@ -2,7 +2,7 @@ const express = require('express');
 const userRouter = require('./routes/userRoutes');
 const app = express();
 
-app.use('/usersusers',userRouter);
+app.use('/user',userRouter);
 
 app.get('/',(req,res)=>{
     res.send("open server")
