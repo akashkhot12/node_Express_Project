@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
 const {Pool} = require('pg');
+const router = require('./routes/userRoutes');
 
 
 const pool = new Pool({
@@ -19,6 +20,9 @@ pool.connect((err, client, done) => {
         done(); // Release the client back to the pool
     }
 });
+
+
+app.use('/user',router)
 
 app.get('/',async(req,res)=>{
     res.send("hello")
