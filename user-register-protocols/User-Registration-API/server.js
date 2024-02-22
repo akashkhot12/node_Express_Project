@@ -1,13 +1,13 @@
 const express = require('express');
+const userRouter = require('./router/userRouter');
 const app = express();
-const router = require('./router/userRouter')
 
-app.use('user',)
+app.use('/user',userRouter);
 
 app.get('/',(req,res)=>{
-    res.send("hello")
+    res.send("open server")
 })
 
 app.listen(5000,()=>{
-    console.log("server is up");
+    console.log("server is start");
 })

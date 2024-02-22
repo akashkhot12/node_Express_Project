@@ -1,11 +1,13 @@
 const express = require('express');
-const router = express.Router();
+const userRouter = express.Router();
+const app = express();
 
-router.post('/signUp',(req,res)=>{
-    res.send("signUp")
-})
-router.post('/signIn',(req,res)=>{
-    res.send("signIn")
+userRouter.post('/singup',(req,res)=>{
+    res.send('signup')
+});
+
+userRouter.post('/login',(req,res)=>{
+    res.send('login')
 })
 
-module.exports = router
+module.exports = userRouter;
