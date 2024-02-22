@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const {Pool} = require('pg');
 const router = require('./routes/userRoutes');
+const registerRouter = require('./routes/registerUser')
 
 
 const pool = new Pool({
@@ -21,8 +22,11 @@ pool.connect((err, client, done) => {
     }
 });
 
+module.exports = pool;
 
-app.use('/user',router)
+
+app.use('/user',router);
+app.use('/register',registerRouter);
 
 app.get('/',async(req,res)=>{
     res.send("hello")
