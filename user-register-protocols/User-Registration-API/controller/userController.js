@@ -1,4 +1,4 @@
-const userSchema = require('../model/userModel')
+const userModel = require('../model/userModel')
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken')
 const SECRET_KEY = 'UserApi'
@@ -12,7 +12,7 @@ const signUp = async(req,res)=>{
 
     const {userName,email,password}= req.body;
     try {
-        const existingUser =await userSchema.findOne({email:email})
+        const existingUser =await userModel.findOne({email:email})
         if (!existingUser) {
             return res.status(400).json({message:"user already exists"});
         }
@@ -20,7 +20,7 @@ const signUp = async(req,res)=>{
 
         const hashedPassword = await bcrypt.hash(password,10);
 
-        const createUser = userSchema.create({
+        const createUser = userModel.create({
             email:email,
             password:hashedPassword,
             userName:userName
