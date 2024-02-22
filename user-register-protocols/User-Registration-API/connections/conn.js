@@ -11,4 +11,4 @@ const connections = async(req,res)=>{
     return db.collection('User-validations')
 }
 
-module.exports = connections
+module.exports = connections;
