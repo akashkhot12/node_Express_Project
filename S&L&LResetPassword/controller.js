@@ -65,15 +65,14 @@ const signin = async (req, res) => {
     }
 }
 
+// logout
 
-const logout = async(req,res)=>{
-    req.session.destroy((err) => {
-        if (err) {
-            return res.status(500).json({ message: 'Error occurred while logging out' });
-        }
-        res.clearCookie('connect.sid'); // Clear the session cookie
-        res.json({ message: 'Logout successful' });
-    });
+const logout = async(req,res,next)=>{
+    res.cookie('cookie', '', {
+        expireIn: new Date(Date.now())
+    })
+    return res.status(200).json({ message: 'User Logout Successfully' })
+    next()
 }
 
 module.exports = {signup, signin , logout};
