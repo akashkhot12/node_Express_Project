@@ -3,7 +3,7 @@ const userModel = require('./model');
 const jwt = require('jsonwebtoken');
 const SECRET_KEY = 'LoginApi'
 
-const signUp = async (req, res) => {
+const signup = async (req, res) => {
 
     // user Exist or not 
     // create a hashed password
@@ -35,7 +35,7 @@ const signUp = async (req, res) => {
     }
 }
 
-const signIn = async (req, res) => {
+const signin = async (req, res) => {
     // validate a user user exist or not 
     // matched password with hashed 
     // create signIn 
@@ -54,8 +54,8 @@ const signIn = async (req, res) => {
             return res.status(401).json({ message: "Invalide Credentials " });
         }
 
-        const token = jwt.sign({ email: result.email, id: result._id }, SECRET_KEY);
-        res.status(201).json({ message: result, token: token })
+        const token = jwt.sign({ email: UserExist.email, id: UserExist._id }, SECRET_KEY);
+        res.status(201).json({ message: UserExist, token: token })
 
 
     } catch (error) {
@@ -64,4 +64,9 @@ const signIn = async (req, res) => {
     }
 }
 
-module.exports = {signUp, signIn};
+
+const logout = async(req,res)=>{
+
+}
+
+module.exports = {signup, signin , logout};

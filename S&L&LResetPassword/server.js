@@ -5,7 +5,18 @@ const router = require('./router')
 
 
 app.use(express.json());
+
+// middleware
+
+app.use((req,res,next)=>{
+    console.log("Http Method - " + req.method  + " , URL - " + req.url);
+    next();
+})
+
+
 app.use('/user',router);
+
+
 
 app.get('/',(req,res)=>{
     res.status('hello')
