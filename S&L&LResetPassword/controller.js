@@ -1,7 +1,8 @@
 const bcrypt = require('bcrypt');
 const userModel = require('./model');
 const jwt = require('jsonwebtoken');
-const SECRET_KEY = 'LoginApi'
+const SECRET_KEY = 'LoginApi';
+const destroy =require('destroy')
 
 const signup = async (req, res) => {
 
@@ -66,7 +67,13 @@ const signin = async (req, res) => {
 
 
 const logout = async(req,res)=>{
-
+    req.session.destroy((err) => {
+        if (err) {
+            return res.status(500).json({ message: 'Error occurred while logging out' });
+        }
+        res.clearCookie('connect.sid'); // Clear the session cookie
+        res.json({ message: 'Logout successful' });
+    });
 }
 
 module.exports = {signup, signin , logout};
