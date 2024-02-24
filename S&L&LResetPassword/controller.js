@@ -67,12 +67,29 @@ const signin = async (req, res) => {
 
 // logout
 
-const logout = async(req,res,next)=>{
+const logout = async(req,res)=>{
     res.cookie('cookie', '', {
         expireIn: new Date(Date.now())
     })
     return res.status(200).json({ message: 'User Logout Successfully' })
-    next()
+}
+
+
+// reset password
+
+const resetPassword = async(req,res,next)=>{
+    // check user is exist or not 
+    // type password and match with hashed password .
+    // then update a new passoword 
+    // generate a token
+
+    const{email,password}=req.body;
+    try {
+        checkPassword
+    } catch (error) {
+        
+    }
+
 }
 
 module.exports = {signup, signin , logout};
