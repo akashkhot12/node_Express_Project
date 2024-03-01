@@ -7,7 +7,7 @@ const userData = new mongoose.Schema(
     userName: { type: String, require: true, unique: true },
     password: { type: String, require: true },
     email: { type: String, require: true, unique: true },
-    phone: { type: String, require: true, unique: true }
+    phone: { type: Number, require: true, unique: true }
   },
   {created_at    : { type: Date, required: true, default: Date.now }}
 );
