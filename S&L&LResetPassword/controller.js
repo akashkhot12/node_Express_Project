@@ -20,12 +20,12 @@ const signup = async (req, res) => {
             res.status(400).json({ message: "user already exist" })
         }
 
-        const hashepassword = await bcrypt.hash(password, 10);
+        const hashedpassword = await bcrypt.hash(password, 10);
 
         const result = await userModel.create({
             username: userName,
             email: email,
-            password: hashepassword
+            password: hashedpassword
         })
 
         const token = jwt.sign({ email: result.email, id: result._id }, SECRET_KEY);

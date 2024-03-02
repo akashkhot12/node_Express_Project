@@ -1,4 +1,3 @@
-const express = require('express');
 const model = require('../model/schema')
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
@@ -7,7 +6,7 @@ const SECRET_KEY = "contactApi1212"
 const register = async(req,res)=>{
     const{firstName,lastName,userName,password,email,phone} = req.body;
     try {
-        const existUser = await model.findOne({email:email});
+        const existUser = await userData.findOne({email:email});
         if (existUser) {
             res.status(401).json({message:"user Already exists "});
         }
@@ -22,7 +21,7 @@ const register = async(req,res)=>{
             phone:phone
         })
         
-        const token  = await jwt.sign({userName:registrations.userName,id:registrations._id},SECRET_KEY);
+        const token  = jwt.sign({email:registrations.email,id:registrations._id},SECRET_KEY);
         res.status(201).json({message:registrations,token:token})
 
     } catch (error) {
