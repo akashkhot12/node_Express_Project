@@ -6,8 +6,4 @@ const { register } = require('../controller.js/api');
 router.post('/register',register)
 
 
-router.get('/another-route' , (req , res)=>{
-   
-})
-
 module.exports  = router;
