@@ -1,15 +1,13 @@
 const express = require('express');
+const { register } = require('../controller.js/api');
  const router = express.Router()
 
 
-router.get('/hello' , (req , res)=>{
-    // router code here
-    res.send("hello akash ")
-})
+router.post('/register',register)
 
 
 router.get('/another-route' , (req , res)=>{
    
 })
 
-module.exports  = router
+module.exports  = router;
