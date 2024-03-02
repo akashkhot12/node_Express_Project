@@ -30,4 +30,4 @@ const userDetails = new mongoose.Schema({
     }
 });
 
-module.exports = mongoose.model('data',userDetails)
+module.exports = mongoose.model('API',userDetails)
