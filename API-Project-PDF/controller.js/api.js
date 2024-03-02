@@ -94,14 +94,11 @@ const getByID = async (req, res) => {
 const sendResetPasswordMail = async (name, email, token) => {
     try {
         const transporter = nodemailer.createTransport({
-            host: 'smtp.gmail.com',
-            port: 587,
-            secure: false,
-            requireTLS: true,
-            auth: {
-                user: config.emailUser,
-                password: config.emailPassword
-            }
+            service: 'Gmail',
+         auth: {
+        user: 'ekvidhkridasanghatanabhandara@gmail.com@gmail.com',
+        pass: 'Akash3975',
+         }
         });
 
         const mailOptions = {
