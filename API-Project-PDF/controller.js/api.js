@@ -33,6 +33,8 @@ const register = async (req, res) => {
 }
 
 
+// login the User 
+
 const login  = async(req,res)=>{
     const {email,password} = req.body;
     try {
@@ -56,6 +58,8 @@ const login  = async(req,res)=>{
 }
 
 
+// get all user details 
+
 const getAllUsers = async(req,res)=>{
     let getDetails = await userDetails.find();
    if (!getDetails) {
@@ -65,6 +69,8 @@ const getAllUsers = async(req,res)=>{
 }
 
 
+// get by id for particular users
+
 const getByID = async(req,res)=>{
     
     let getUserByID = await userDetails.findById(req.params.id);
@@ -73,6 +79,9 @@ const getByID = async(req,res)=>{
     }
     return res.status(201).json({message:getUserByID})
 }
+
+
+
 
 module.exports = { register,login,getAllUsers ,getByID};
 
