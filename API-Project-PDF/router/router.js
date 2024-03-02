@@ -1,14 +1,14 @@
 const express = require('express');
-const { register, login, getAllUsers, getByID, forgotPassword, resetPassword } = require('../controller.js/api');
- const router = express.Router()
+const { register, login, getAllUsers, getByID, forgotPassword, sendResetPasswordMail } = require('../controller.js/api');
+const router = express.Router()
 
 
-router.post('/register',register);
-router.post('/login',login);
-router.get('/getUsers',getAllUsers);
+router.post('/register', register);
+router.post('/login', login);
+router.get('/getUsers', getAllUsers);
 router.get('/users/:id', getByID);
-router.post('/reset', resetPassword);
+router.post('/reset', sendResetPasswordMail);
 router.post('/forgot', forgotPassword);
 
 
-module.exports  = router;
+module.exports = router;
