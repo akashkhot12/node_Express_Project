@@ -27,6 +27,10 @@ const userDetails = new mongoose.Schema({
         type: Number,
         required: true,
         unique: true 
+    },
+    token:{
+        type:String,
+        default:''
     }
 });
 
