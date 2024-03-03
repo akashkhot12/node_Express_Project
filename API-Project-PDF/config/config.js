@@ -1,5 +1,5 @@
 const config = {
-    emailUser:'ekvidhkridasanghatanabhandara@gmail.com@gmail.com',
+    emailUser:'ekvidhkridasanghatanabhandara@gmail.com',
     emailPassword:'Akash3975'
 }
 

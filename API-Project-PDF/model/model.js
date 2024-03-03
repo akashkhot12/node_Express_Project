@@ -28,10 +28,8 @@ const userDetails = new mongoose.Schema({
         required: true,
         unique: true 
     },
-    token:{
-        type:String,
-        default:''
-    }
+    resetPasswordToken: String,
+    resetPasswordExpires: Date,
 });
 
 module.exports = mongoose.model('API',userDetails)
