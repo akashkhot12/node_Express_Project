@@ -1,6 +1,10 @@
 const express = require('express');
-const mongoose = require('mongoose')
+const mongoose = require('mongoose');
+const router = require('./router');
 const app = express();
+
+app.use(express.json());
+app.use('/users',router)
 
 mongoose.connect("mongodb+srv://akashkhot03:Akash3975@api.rloabth.mongodb.net/")
 .then(()=>{
