@@ -1,20 +1,18 @@
 // routes/userProfile.js
 const express = require('express');
 const router = express.Router();
-const UserProfile = require('../model/user');
+const User = require('../model/user');
 
 // Create a new user profile
-router.post('/', async (req, res) => {
+router.post('/user-insert', async (req, res) => {
     try {
-        const userProfile = new UserProfile({
-            user_id: req.body.user_id,
-            full_name: req.body.full_name,
-            birthdate: req.body.birthdate,
-            bio: req.body.bio,
-            avatar_url: req.body.avatar_url
+        const user = new User({
+            username: req.body.full_name,
+            email: req.body.birthdate,
+            password_hash: req.body.bio
         });
 
-        const savedProfile = await userProfile.save();
+        const savedProfile = await user.save();
         res.json(savedProfile);
     } catch (err) {
         res.status(400).json({ message: err.message });

@@ -4,7 +4,7 @@ const router = express.Router();
 const UserProfile = require('../model/userProfile');
 
 // Create a new user profile
-router.post('/', async (req, res) => {
+router.post('/user-profile', async (req, res) => {
     try {
         const userProfile = new UserProfile({
             user_id: req.body.user_id,
