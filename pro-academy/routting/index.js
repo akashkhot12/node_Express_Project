@@ -1,18 +1,14 @@
-const http = required('http');
+const express = require('express');
+const app = express();
 
-const server = http.createServer((req,res)=>{
+
+const server = (req,res)=>{
     let path = req.url;
-    if (path==='/' || path.toLocaleLowerCase()==='/home') {
-        res.end("your are in home page")
+    if (path==="/" || path.toLocaleLowerCase()==='/home') {
+        res.send("your are in home page")
     }
-    else if (path.toLocaleLowerCase()==='/about') {
-        res.end("your are in about page")
-    } else {
-        res.end("something went wrong")
-    }
-})
+}
 
-
-server.listen(5000,()=>{
-    console.log("server is start");
+app.listen(5000,()=>{
+    console.log("server is up");
 })
