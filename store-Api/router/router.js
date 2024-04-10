@@ -1,8 +1,9 @@
 const express = require('express');
+const { showDetails } = require('../controller/api');
 const router = express.Router();
 
 
-router.get('/storeDetails',);
+router.get('/storeDetails',showDetails);
 
 router.post('/storingData',);
 

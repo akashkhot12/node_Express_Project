@@ -1,6 +1,12 @@
 const express = require('express');
 const app = express();
 const mongoose = require('mongoose')
+const router = require('./router/router')
+
+app.use(express.json());
+
+app.use('/store',router)
+
 
 app.get('/',(req,res)=>{
     res.send("hello aakash")
