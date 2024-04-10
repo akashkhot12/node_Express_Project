@@ -8,6 +8,18 @@ app.get('/' , async(req , res)=>{
     const result  = await mongodb();
     const data = await result.find().toArray();
     res.status(200).json({message:data})
+    console.log(data);
+})
+
+app.post('/' , async(req , res)=>{
+    const result = await mongodb();
+    const addData = await result.insertOne({
+        firstName:"joy",
+        LastName:"das"
+    })
+    console.log(addData.acknowledged);
+    res.status(201).json({message:addData.acknowledged})
+
 })
 
 app.use('/',(req,res)=>{
