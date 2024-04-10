@@ -1,6 +1,6 @@
 const {MongoClient} = require('mongodb');
 const url = 'mongodb://localhost:27017';
-const client = MongoClient(url);
+const client = new MongoClient(url);
 const database  = 'Mongo-Crud';
 
 const connections = async()=>{
