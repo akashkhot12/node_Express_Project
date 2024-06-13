@@ -9,4 +9,7 @@ router.post('/signup', signup);
 router.post('/login', login);
 router.post('/logout', protect, logout);
 
+const name = "Piyush";
+const lname = "thaware";
+
 module.exports = router;
