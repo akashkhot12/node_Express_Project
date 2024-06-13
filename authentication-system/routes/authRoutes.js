@@ -11,5 +11,8 @@ router.post('/logout', protect, logout);
 
 const name = "Piyush";
 const lname = "thaware";
+// new changes
+const email="piyush@gmail.com";
+const phone = 9876543321;
 
 module.exports = router;
