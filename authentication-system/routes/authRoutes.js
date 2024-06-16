@@ -15,4 +15,9 @@ const lname = "thaware";
 const email="piyush@gmail.com";
 const phone = 9876543321;
 
+// my changes
+const headphones = "boot"
+const laptop = "leveno"
+
+
 module.exports = router;
