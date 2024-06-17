@@ -1,9 +1,14 @@
 const {Sequelize} = require('sequelize');
 
-const sequelize = new Sequelize('bootcoding', 'postgres', 'root', {
-    host: 'localhost',
-    dialect:'postgres' /* one of 'mysql' | 'postgres' | 'sqlite' | 'mariadb' | 'mssql' | 'db2' | 'snowflake' | 'oracle' */
-  });
+const sequelize = new Sequelize({
+    username : "postgres",
+    password : "root",
+    host : "localhost",
+    port : 5433,
+    dialect : "postgres",
+    database : "bootcoding",
+    logging:false
+});
 
   try {
     sequelize.authenticate();
@@ -11,3 +16,5 @@ const sequelize = new Sequelize('bootcoding', 'postgres', 'root', {
   } catch (error) {
     console.error('Unable to connect to the database:', error);
   }
+
+
