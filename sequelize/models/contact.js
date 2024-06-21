@@ -3,7 +3,7 @@ const sequelize = require('./index')
 
 
 const Contact = sequelize.define(
-  'Contacts',
+  'Contacts ',
   {
     // Model attributes are defined here
     permanent_address: {
