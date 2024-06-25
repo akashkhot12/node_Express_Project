@@ -34,17 +34,8 @@ const getAllUsers = async (req, res) => {
     });
 };
 
-const getUserById = async(req,res)=>{
-    const { userId } = req.params;
-    connection.query('SELECT * FROM Users WHERE Id = ?', [userId], (err, userResults) => {
-        if (err) return res.status(500).json({ error: err });
-        if (userResults.length === 0) return res.status(404).json({ message: 'User not found' });
 
-        connection.query('SELECT * FROM Contacts WHERE created_by = ?', [userId], (err, contactResults) => {
-            if (err) return res.status(500).json({ error: err });
-            res.status(200).json({ user: userResults[0], contacts: contactResults });
-        });
-    });
-}
+// // Get User By ID (with contacts)
 
-module.exports = { register, getAllUsers,getUserById };
+
+module.exports = { register, getAllUsers };

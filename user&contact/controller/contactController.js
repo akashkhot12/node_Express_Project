@@ -14,12 +14,30 @@ const addContact = async(req,res)=>{
 };
 
 const getContactDetails = async(req,res)=>{
-    res.send('getContactDetails')
+    const { contactId } = req.params;
+    connection.query('SELECT * FROM Contacts WHERE Id = ?', [contactId], (err, contactResults) => {
+        if (err) return res.status(500).json({ error: err });
+        if (contactResults.length === 0) return res.status(404).json({ message: 'Contact not found' });
+
+        connection.query('SELECT * FROM Users WHERE Id = ?', [contactResults[0].created_by], (err, userResults) => {
+            if (err) return res.status(500).json({ error: err });
+            res.status(200).json({ contact: contactResults[0], user: userResults[0] });
+        });
+    });
 };
 
 const getUserDetailsWithContacts = async(req,res)=>{
-    res.send('getUserDetailsWithContacts')
-};
+    const { userId } = req.params;
+    connection.query('SELECT * FROM Users WHERE Id = ?', [userId], (err, userResults) => {
+        if (err) return res.status(500).json({ error: err });
+        if (userResults.length === 0) return res.status(404).json({ message: 'User not found' });
+
+        connection.query('SELECT * FROM Contacts WHERE created_by = ?', [userId], (err, contactResults) => {
+            if (err) return res.status(500).json({ error: err });
+            res.status(200).json({ user: userResults[0], contacts: contactResults });
+        });
+    });
+}
 
 
 module.exports = {addContact,getContactDetails,getUserDetailsWithContacts}
