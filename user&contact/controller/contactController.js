@@ -1,22 +1,26 @@
 const express = require('express');
 const connection = require('../config/database');
 
+// Add Contact
 
-const addContact = async(req,res)=>{
+const addContact = async (req, res) => {
     const { fullname, address, contactno, zip, email, created_by } = req.body;
     // console.log(req.body);
-    connection.query('INSERT INTO Contacts (fullname, address, contactno, zip, email, created_by) VALUES (?, ?, ?, ?, ?, ?)', 
-    [fullname, address, contactno, zip, email, created_by], 
-    (err, result) => {
-        if (err) return res.status(500).json({ error: err });
-        res.status(201).json({ message: 'Contact added' });
-    });
+    connection.query('INSERT INTO Contacts (fullname, address, contactno, zip, email, created_by) VALUES (?, ?, ?, ?, ?, ?)',
+        [fullname, address, contactno, zip, email, created_by],
+        (err, result) => {
+            if (err) return res.status(500).json({ error: err });
+            res.status(201).json({ message: 'Contact added' });
+        });
 };
 
-const getContactDetails = async(req,res)=>{
+
+// pending
+const getContactDetails = async (req, res) => {
     const { contactId } = req.params;
     connection.query('SELECT * FROM Contacts WHERE Id = ?', [contactId], (err, contactResults) => {
         if (err) return res.status(500).json({ error: err });
+
         if (contactResults.length === 0) return res.status(404).json({ message: 'Contact not found' });
 
         connection.query('SELECT * FROM Users WHERE Id = ?', [contactResults[0].created_by], (err, userResults) => {
@@ -26,7 +30,9 @@ const getContactDetails = async(req,res)=>{
     });
 };
 
-const getUserDetailsWithContacts = async(req,res)=>{
+
+// pending
+const getUserDetailsWithContacts = async (req, res) => {
     const { userId } = req.params;
     connection.query('SELECT * FROM Users WHERE Id = ?', [userId], (err, userResults) => {
         if (err) return res.status(500).json({ error: err });
@@ -40,4 +46,4 @@ const getUserDetailsWithContacts = async(req,res)=>{
 }
 
 
-module.exports = {addContact,getContactDetails,getUserDetailsWithContacts}
+module.exports = { addContact, getContactDetails, getUserDetailsWithContacts }
