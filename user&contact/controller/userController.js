@@ -1,8 +1,6 @@
 const express = require("express");
 const connection = require("../config/database");
 const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
-const JWT_SECRET = "Akash2020";
 
 // register new users - signUp
 const register = async (req, res) => {
@@ -20,7 +18,7 @@ const register = async (req, res) => {
                 (err, result) => {
                     if (err) return res.status(500).json({ error: err });
 
-                    res.status(201).json({ message: 'User registered.'});
+                    res.status(201).json({ message: 'User registered.' });
                 });
         });
     });
@@ -34,8 +32,14 @@ const getAllUsers = async (req, res) => {
     });
 };
 
+const getUserById = async (req,res)=>{
+    const {id} = req.params;
+    connection.query('SELECT * FROM Users WHERE id = ?',[id],(err,result)=>{
+        if (err) return res.status(500).json({ error: err });
+        res.status(200).json(result);
+    })
+}
 
-// // Get User By ID (with contacts)
 
 
-module.exports = { register, getAllUsers };
+module.exports = { register, getAllUsers,getUserById };
