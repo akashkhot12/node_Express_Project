@@ -2,7 +2,18 @@ const express = require('express');
 const connection = require('../config/database');
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
+const nodemailer = require('nodemailer');
 const JWT_SECRET = 'Akash2020'
+
+
+// middleware 
+const transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+        username: 'khotakash10@gmail.com',
+        password: 'Akash3975'
+    }
+});
 
 // login api
 
@@ -35,7 +46,7 @@ const logout = async (req, res) => {
 const forgotPassword = async (req, res) => {
     const { email } = req.body;
     const query = 'SELECT * FROM users WHERE email = ?';
-    db.query(query, [email], (err, results) => {
+    connection.query(query, [email], (err, results) => {
         if (err) return res.status(500).send('Error on the server.');
         if (results.length === 0) return res.status(404).send('No user found.');
 
@@ -43,13 +54,50 @@ const forgotPassword = async (req, res) => {
         const token = jwt.sign({ id: user.id }, JWT_SECRET, { expiresIn: 3600 }); // expires in 1 hour
         res.status(200).send({ auth: true, token: token, message: 'Use this token to reset your password' });
     });
+    // const { email } = req.body;
+    // connection.query('SELECT * FROM users WHERE email = ?', [email], (err, results) => {
+    //     if (err) throw err;
+    //     if (results.length === 0) {
+    //         return res.status(400).send('No user with that email');
+    //     }
+
+    //     const user = results[0];
+    //     const token = jwt.sign({ id: user.id }, JWT_SECRET);
+    //     console.log(token);
+
+    //     const mailOptions = {
+    //         from: 'khotakash10@gmail.com',
+    //         to:email,
+    //         subject: 'Password Reset',
+    //         text: `You requested a password reset. Click the link to reset your password: http://localhost:3000/reset-password/${token}`
+    //     };
+
+    //     // console.log(mailOptions);
+    //     transporter.sendMail(mailOptions, (err, info) => {
+    //         if (err) return res.status(500).json({err:err}) 
+    //         res.status(200).send('Password reset email sent');
+    //     });
+    // });
 };
 
 
-
+// reset password api. 
 
 const resetPassword = async (req, res) => {
-   
+    const { token } = req.params;
+    const { newPassword } = req.body;
+
+    jwt.verify(token, JWT_SECRET, (err, decoded) => {
+        if (err) {
+            return res.status(400).send('Invalid or expired token');
+        }
+
+        const hashedPassword = bcrypt.hashSync(newPassword, 10);
+        connection.query('UPDATE users SET password = ? WHERE id = ?', [hashedPassword, decoded.id], (err, results) => {
+            if (err) throw err;
+            res.status(200).send('Password reset successful.');
+        });
+    });
 };
 
 
