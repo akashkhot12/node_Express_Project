@@ -5,9 +5,10 @@ const bcrypt = require("bcrypt");
 const JWT_SECRET = 'Akash2020'
 
 // login api
+
 const login = async (req, res) => {
     const { email, password } = req.body;
-    connection.query('SELECT * FROM Users WHERE email = ?', [email], (err, results) => {
+     connection.query('SELECT * FROM Users WHERE email = ?', [email], (err, results) => {
         if (err) return res.status(500).json({ error: err });
 
         if (results.length === 0) return res.status(401).json({ message: 'Authentication failed' });
@@ -24,15 +25,39 @@ const login = async (req, res) => {
 };
 
 const logout = async (req, res) => {
-    res.send('logout')
+    res.status(200).send({ auth: false, token: null });
 };
 
 const forgotPassword = async (req, res) => {
-    res.send('forgotPassword')
+    const { email } = req.body;
+    const query = 'SELECT * FROM users WHERE email = ?';
+    db.query(query, [email], (err, results) => {
+        if (err) return res.status(500).send('Error on the server.');
+        if (results.length === 0) return res.status(404).send('No user found.');
+
+        const user = results[0];
+        const token = jwt.sign({ id: user.id }, JWT_SECRET, { expiresIn: 3600 }); // expires in 1 hour
+        res.status(200).send({ auth: true, token: token, message: 'Use this token to reset your password' });
+    });
 };
 
+
+// password reset process .
+
 const resetPassword = async (req, res) => {
-    res.send('resetPassword')
+    const { token, newPassword } = req.body;
+    console.log(token,newPassword);
+
+    jwt.verify(token, JWT_SECRET, (err, decoded) => {
+        if (err) return res.status(500).send('Failed to authenticate token.');
+
+        const hashedPassword = bcrypt.hashSync(newPassword, 10);
+        const query = 'UPDATE users SET password = ? WHERE id = ?';
+        connection.query(query, [hashedPassword, decoded.id], (err, result) => {
+            if (err) return res.status(500).send('There was a problem updating the password.');
+            res.status(200).send('Password reset successfully');
+        });
+    });
 };
 
 const changePassword = async (req, res) => {

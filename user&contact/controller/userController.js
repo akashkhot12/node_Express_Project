@@ -2,7 +2,8 @@ const express = require("express");
 const connection = require("../config/database");
 const bcrypt = require("bcrypt");
 
-// register new users - signUp
+// register new users - signUp.
+
 const register = async (req, res) => {
     const { firstname, lastname, username, password, email, phone } = req.body;
     connection.query('SELECT * FROM Users WHERE email = ?', [email], (err, results) => {
@@ -24,6 +25,7 @@ const register = async (req, res) => {
     });
 };
 
+// get all user details.
 
 const getAllUsers = async (req, res) => {
     connection.query('SELECT * FROM Users', (err, results) => {
@@ -31,6 +33,9 @@ const getAllUsers = async (req, res) => {
         res.status(200).json(results);
     });
 };
+
+
+// get user data by using id
 
 const getUserById = async (req,res)=>{
     const {id} = req.params;

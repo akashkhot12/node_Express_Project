@@ -15,10 +15,10 @@ const addContact = async (req, res) => {
 };
 
 
-// pending
+// get contact details with user data.
 const getContactDetails = async (req, res) => {
-    const { contactId } = req.params;
-    connection.query('SELECT * FROM Contacts WHERE Id = ?', [contactId], (err, contactResults) => {
+    const { id } = req.params;
+    connection.query('SELECT * FROM Contacts WHERE Id = ?', [id], (err, contactResults) => {
         if (err) return res.status(500).json({ error: err });
 
         if (contactResults.length === 0) return res.status(404).json({ message: 'Contact not found' });
@@ -31,14 +31,15 @@ const getContactDetails = async (req, res) => {
 };
 
 
+
 // pending
 const getUserDetailsWithContacts = async (req, res) => {
-    const { userId } = req.params;
-    connection.query('SELECT * FROM Users WHERE Id = ?', [userId], (err, userResults) => {
+    const { id } = req.params;
+    connection.query('SELECT * FROM Users WHERE Id = ?', [id], (err, userResults) => {
         if (err) return res.status(500).json({ error: err });
         if (userResults.length === 0) return res.status(404).json({ message: 'User not found' });
 
-        connection.query('SELECT * FROM Contacts WHERE created_by = ?', [userId], (err, contactResults) => {
+        connection.query('SELECT * FROM Contacts WHERE created_by = ?', [id], (err, contactResults) => {
             if (err) return res.status(500).json({ error: err });
             res.status(200).json({ user: userResults[0], contacts: contactResults });
         });
