@@ -24,9 +24,13 @@ const login = async (req, res) => {
     });
 };
 
+// logout api 
+
 const logout = async (req, res) => {
     res.status(200).send({ auth: false, token: null });
 };
+
+
 
 const forgotPassword = async (req, res) => {
     const { email } = req.body;
@@ -42,9 +46,15 @@ const forgotPassword = async (req, res) => {
 };
 
 
-// password reset process .
+
 
 const resetPassword = async (req, res) => {
+   
+};
+
+
+// changed password api .
+const changePassword = async (req, res) => {
     const { token, newPassword } = req.body;
     console.log(token,newPassword);
 
@@ -55,13 +65,9 @@ const resetPassword = async (req, res) => {
         const query = 'UPDATE users SET password = ? WHERE id = ?';
         connection.query(query, [hashedPassword, decoded.id], (err, result) => {
             if (err) return res.status(500).send('There was a problem updating the password.');
-            res.status(200).send('Password reset successfully');
+            res.status(200).send('Password changed successfully.');
         });
     });
-};
-
-const changePassword = async (req, res) => {
-    res.send('changePassword')
 };
 
 module.exports = { login, logout, forgotPassword, resetPassword, changePassword }
