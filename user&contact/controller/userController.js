@@ -11,10 +11,10 @@ const register = async (req, res) => {
 
         if (results.length > 0) return res.status(400).json({ message: 'Email already exists' });
 
-        bcrypt.hash(password, 10, (err, hash) => {
+        bcrypt.hash(password, 10, async (err, hash) => {
             if (err) return res.status(500).json({ error: err });
 
-            connection.query('INSERT INTO Users (firstname, lastname, username, password, email, phone) VALUES (?, ?, ?, ?, ?, ?)',
+           await connection.query('INSERT INTO Users (firstname, lastname, username, password, email, phone) VALUES (?, ?, ?, ?, ?, ?)',
                 [firstname, lastname, username, hash, email, phone],
                 (err, result) => {
                     if (err) return res.status(500).json({ error: err });
@@ -28,7 +28,7 @@ const register = async (req, res) => {
 // get all user details.
 
 const getAllUsers = async (req, res) => {
-    connection.query('SELECT * FROM Users', (err, results) => {
+    await connection.query('SELECT * FROM Users', (err, results) => {
         if (err) return res.status(500).json({ error: err });
         res.status(200).json(results);
     });
@@ -39,12 +39,11 @@ const getAllUsers = async (req, res) => {
 
 const getUserById = async (req,res)=>{
     const {id} = req.params;
-    connection.query('SELECT * FROM Users WHERE id = ?',[id],(err,result)=>{
+    await connection.query('SELECT * FROM Users WHERE id = ?',[id],(err,result)=>{
         if (err) return res.status(500).json({ error: err });
         res.status(200).json(result);
     })
 }
-
 
 
 module.exports = { register, getAllUsers,getUserById };

@@ -6,7 +6,7 @@ const connection = require('../config/database');
 const addContact = async (req, res) => {
     const { fullname, address, contactno, zip, email, created_by } = req.body;
     // console.log(req.body);
-    connection.query('INSERT INTO Contacts (fullname, address, contactno, zip, email, created_by) VALUES (?, ?, ?, ?, ?, ?)',
+     connection.query('INSERT INTO Contacts (fullname, address, contactno, zip, email, created_by) VALUES (?, ?, ?, ?, ?, ?)',
         [fullname, address, contactno, zip, email, created_by],
         (err, result) => {
             if (err) return res.status(500).json({ error: err });
@@ -18,7 +18,7 @@ const addContact = async (req, res) => {
 // get contact details with user data.
 const getContactDetails = async (req, res) => {
     const { id } = req.params;
-    connection.query('SELECT * FROM Contacts WHERE Id = ?', [id], (err, contactResults) => {
+    await connection.query('SELECT * FROM Contacts WHERE Id = ?', [id], (err, contactResults) => {
         if (err) return res.status(500).json({ error: err });
 
         if (contactResults.length === 0) return res.status(404).json({ message: 'Contact not found' });
