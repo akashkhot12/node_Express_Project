@@ -21,7 +21,7 @@ const getContactDetails = async (req, res) => {
     await connection.query('SELECT * FROM Contacts WHERE Id = ?', [id], (err, contactResults) => {
         if (err) return res.status(500).json({ error: err });
 
-        if (contactResults.length === 0) return res.status(404).json({ message: 'Contact not found' });
+        if (contactResults[0].length === 0) return res.status(404).json({ message: 'Contact not found' });
 
         connection.query('SELECT * FROM Users WHERE Id = ?', [contactResults[0].created_by], (err, userResults) => {
             if (err) return res.status(500).json({ error: err });

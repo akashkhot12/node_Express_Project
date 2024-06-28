@@ -20,12 +20,13 @@ const transporter = nodemailer.createTransport({
 const login = async (req, res) => {
     const { email, password } = req.body;
      connection.query('SELECT * FROM Users WHERE email = ?', [email], (err, results) => {
+        console.log(results);
         if (err) return res.status(500).json({ error: err });
 
         if (results.length === 0) return res.status(401).json({ message: 'Authentication failed' });
         
         bcrypt.compare(password, results[0].password, (err, result) => {
-            console.log(results[0].password);
+            // console.log(results[0].password);
             if (err) return res.status(500).json({ error: err });
             if (!result) return res.status(401).json({ message: 'Authentication failed' });
             
@@ -54,30 +55,6 @@ const forgotPassword = async (req, res) => {
         const token = jwt.sign({ id: user.id }, JWT_SECRET, { expiresIn: 3600 }); // expires in 1 hour
         res.status(200).send({ auth: true, token: token, message: 'Use this token to reset your password' });
     });
-    // const { email } = req.body;
-    // connection.query('SELECT * FROM users WHERE email = ?', [email], (err, results) => {
-    //     if (err) throw err;
-    //     if (results.length === 0) {
-    //         return res.status(400).send('No user with that email');
-    //     }
-
-    //     const user = results[0];
-    //     const token = jwt.sign({ id: user.id }, JWT_SECRET);
-    //     console.log(token);
-
-    //     const mailOptions = {
-    //         from: 'khotakash10@gmail.com',
-    //         to:email,
-    //         subject: 'Password Reset',
-    //         text: `You requested a password reset. Click the link to reset your password: http://localhost:3000/reset-password/${token}`
-    //     };
-
-    //     // console.log(mailOptions);
-    //     transporter.sendMail(mailOptions, (err, info) => {
-    //         if (err) return res.status(500).json({err:err}) 
-    //         res.status(200).send('Password reset email sent');
-    //     });
-    // });
 };
 
 
@@ -100,11 +77,9 @@ const resetPassword = async (req, res) => {
     });
 };
 
-
 // changed password api .
 const changePassword = async (req, res) => {
     const { token, newPassword } = req.body;
-    console.log(token,newPassword);
 
     jwt.verify(token, JWT_SECRET, (err, decoded) => {
         if (err) return res.status(500).send('Failed to authenticate token.');
