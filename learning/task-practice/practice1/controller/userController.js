@@ -30,4 +30,14 @@ const getAllusers = async(req,res)=>{
     })
 }
 
-module.exports = { registration,getAllusers }
+const getUsersById = async(req,res)=>{
+    const{id} = req.params;
+    await connections.query('SELECT * FROM users WHERE id =?',[id],(err,result)=>{
+        if (err) return res.status(500).json({ message: err });
+        if (result.length===0) return res.status(500).json({ message: "No data found." });
+
+        return res.status(200).json({ message: result });
+    })
+}
+
+module.exports = { registration,getAllusers,getUsersById }
