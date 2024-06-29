@@ -25,7 +25,7 @@ const getContactDetails = async (req, res) => {
 
         connection.query('SELECT * FROM Users WHERE Id = ?', [contactResults[0].created_by], (err, userResults) => {
             if (err) return res.status(500).json({ error: err });
-            res.status(200).json({ contact: contactResults[0], user: userResults[0] });
+            res.status(200).json({ contact: contactResults[0], result: userResults[0] });
         });
     });
 };
@@ -35,20 +35,12 @@ const getContactDetails = async (req, res) => {
 // pending
 const getUserDetailsWithContacts = async (req, res) => {
     const { id } = req.params;
-    await connection.query('SELECT * FROM users WHERE Id = ?', [id], (err, userResults) => {
+    await connection.query('SELECT * FROM contacts where created_by = ? ',[id],(err,userResults)=>{
+        const user = userResults[0];
+        
         if (err) return res.status(500).json({ error: err });
-        
-        if (userResults.length === 0) return res.status(404).json({ message: 'User not found' });
-    
-        const userId = userResults[0].Id;
-        
-        connection.query('SELECT * FROM contacts WHERE created_by = ?', [userId], (err, contactResults) => {
-            if (err) return res.status(500).json({ error: err });
-            
-            res.status(200).json({ contact: contactResults[0], user: userResults[0] });
-        });
-    });
-    
+         return res.status(200).json({message:user.id,user});
+    })
 }
 
 

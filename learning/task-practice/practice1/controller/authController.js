@@ -1,66 +1,58 @@
-const express = require('express');
-const connections = require('../model/database')
+const connection = require('../model/database');
 const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
 require('dotenv').config();
-const JWT_SECRET = process.env.SECRETE_KEY;
+const jwt = require('jsonwebtoken');
 
 
-const login = async (req, res) => {
-    const { email, password } = req.body;
+const login = async(req,res)=>{
+    const{email,password} =req.body;
+   
+    await connection.query('SELECT * FROM users  WHERE email = ? ',[email],(err,results) =>{
+        if(err) return res.status(500).json({message:err});
+        console.log(results);
+        if(results.length === 0) return res.status(400).json({message:"Invalid user."});
+        bcrypt.compare(password,results[0].password,(err,results)=>{
+            if(err) return res.status(500).json({message:err});
+            if(!results) return res.status(500).json({message:"invalid creadentials."});
 
-    await connections.query('SELECT * FROM users WHERE email=?', [email], (err, results) => {
-        if (err) return res.status(500).json({ message: err });
-        if (results.length === 0) return res.status(400).json({ message: "This user not exist." });
+            const token  = jwt.sign({id:results.id},process.env.JWT_SECRET,{expiresIn:3600})
+            return res.status(200).json({message:"login successfull.",token})
 
-        bcrypt.compare(password, results[0].password, (err, result) => {
-            if (err) return res.status(500).json({ message: err });
-
-            if (!result) return res.status(500).json({ message: "creadentials not match." });
-
-            const token = jwt.sign({ user: results[0].Id }, JWT_SECRET, { expiresIn: '1h' });
-
-            return res.status(200).json({ message: "login successfull", token });
         })
     })
 }
 
-const changePassword = async (req, res) => {
-    const { token, newPassword } = req.body;
+const logout = async(req,res)=>{
+    return res.status(200).json({message:"logout successfull."}
+    )
+}
 
-    jwt.verify(token, JWT_SECRET, (err, decoded) => {
-        if (err) return res.status(500).json({ message: "authentication failed." })
+const forgotPassword = async(req,res)=>{
+    
+}
 
-        const hashedPassword = bcrypt.hashSync(newPassword, 10);
-        const query = 'UPDATE users SET password = ? WHERE id = ?';
+const resetPassword = async(req,res)=>{
+    
+}
 
-        connections.query(query, [hashedPassword, decoded.id], (err, result) => {
-            if (err) return res.status(500).json({ message: "There was a problem updating the password." })
+const changePassword = async(req,res)=>{
+    const {token,newPassword} = req.body;
 
-            return res.status(200).send('Password changed successfully.');
+    await jwt.verify(token,process.env.JWT_SECRET,(err,decoded)=>{
+        if(err) return res.status(500).json({message:err});
+        const hashedPaswword = bcrypt.hashSync(newPassword,10);
+
+        const query = 'UPDATE users SET password = ? where id = ?';
+
+        connection.query(query,[hashedPaswword,decoded.id],(err,results)=>{
+            if(err) return res.status(500).json({message:err});
+            if(!results) return res.status(500).json({message:"invalid creadentials"});
+
+            return res.status(201).json({message:"update successfully."})
+            
         })
-    })
-};
-
-const forgotPassword = async (req, res) => {
-    const { email } = req.body;
-
-    connections.query('SELECT * FROM users WHERE email = ?', [email], (err, results) => {
-        if (err) return res.status(500).json({ message: err });
-        if (results.length === 0) return res.status(404).json({ message: " user not found." });
-
-        const user = results[0];
-
-
-        const token = jwt.sign({ id: user.id }, JWT_SECRET, { expiresIn: 3600 });
-
-        return res.status(500).json({ auth: true, token, message: "use this token to reset password." });
     })
 }
 
 
-module.exports = { login, changePassword, forgotPassword }
-
-
-
-
+module.exports = {login,logout,changePassword}

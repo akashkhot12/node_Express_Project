@@ -1,43 +1,50 @@
+// registration 
+// getbyall user 
+
 const express = require('express');
-const connections = require('../model/database');
-const bcrypt = require('bcrypt');
+const connection = require('../model/database');
+const bcrypt =require('bcrypt');
+const jwt = require('jsonwebtoken');
+require('dotenv').config();
 
+const register = async(req,res)=>{
+    const {firstname,lastname,username,password,email,phone} = req.body;
 
-const registration = async (req, res) => {
-    const { firstname, lastname, username, password, email, phone } = req.body;
+    await connection.query('SELECT * FROM users where email = ?',[email],(err,results)=>{
+        if(err) return res.status(500).json({message:err})
+        if(results.length > 0 ) return res.status(400).json({message:"this email already exist."})
+        
+            bcrypt.hash(password,10,(err,hash)=>{
+                connection.query('INSERT INTO users (firstname,lastname,username,password,email,phone) values(?,?,?,?,?,?)',[firstname,lastname,username,hash,email,phone],(err,result)=>{
+                    if(err) res.status(500).json({message:err});
 
-    await connections.query('SELECT * FROM users where email = ?', [email], (err, result) => {
-        if (err) return res.status(500).json({ message: err });
-        if (result.length > 0) return res.status(400).json({ message: "this email alredy exist" });
+                   
+                    return res.status(201).json({message:"data inserted successfully."})
 
-        bcrypt.hash(password, 10, async (err, hash) => {
-            if (err) return res.status(500).json({ message: err });
+                    
+                })
+            })  
+    })
+} 
 
-            console.log(hash);
-            await connections.query('INSERT INTO users(firstname,lastname,username,password,email,phone) values(?,?,?,?,?,?)', [firstname, lastname, username, hash, email, phone], (err, results) => {
-                if (err) return res.status(500).json({ message: err });
-                return res.status(201).json({ message: "data successfully inserted." })
-            })
-
-        })
+const getAllUsers = async(req,res)=>{
+    await connection.query('SELECT * FROM users',(err,results)=>{
+        if(err) return res.status(500).json({message:err});
+         return res.status(500).json({message:results})
     })
 }
 
-const getAllusers = async(req,res)=>{
-    await connections.query('SELECT *FROM users',(err,result)=>{
-        if (err) return res.status(500).json({ message: err });
-        return res.status(200).json({ message: result });
+const getUsersByID = async(req,res)=>{
+    const {id} = req.params
+    await connection.query('SELECT * FROM users WHERE id =?',[id],(err,result)=>{
+        if(err) return res.status(500).json({message:err});
+         return res.status(500).json({message:result})
     })
 }
 
-const getUsersById = async(req,res)=>{
-    const{id} = req.params;
-    await connections.query('SELECT * FROM users WHERE id =?',[id],(err,result)=>{
-        if (err) return res.status(500).json({ message: err });
-        if (result.length===0) return res.status(500).json({ message: "No data found." });
 
-        return res.status(200).json({ message: result });
-    })
-}
 
-module.exports = { registration,getAllusers,getUsersById }
+
+
+
+module.exports = {register,getAllUsers,getUsersByID};

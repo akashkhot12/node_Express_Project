@@ -1,26 +1,23 @@
-
-// require('dotenv').config();
-
 const mysql = require('mysql');
 
-const connections = mysql.createConnection({
-    // host: process.env.DB_Host,
-    // user: process.env.DB_User,
-    // password: process.env.DB_Password,
-    // database: process.env.DB_Database,
+require('dotenv').config();
 
+const connection = mysql.createConnection({
     host:'localhost',
-    user:"root",
+    user:'root',
     password:'',
-    database:"practice-panel"
+    database:'chetna'
 })
 
-// connections.connect((err)=>{
-//     if (err) {
-//         return console.log("err");
-//     } else {
-//         return console.log("Databse connected.");
-//     }
-// })
 
-module.exports = connections;
+connection.connect((err)=>{
+    if (err) {
+        console.log(err);
+    }
+    else{
+        console.log("databse access.");
+    }
+})
+
+
+module.exports = connection
