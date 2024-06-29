@@ -28,11 +28,38 @@ const logout = async(req,res)=>{
 }
 
 const forgotPassword = async(req,res)=>{
-    
+    const {email} = req.body;
+
+    await connection.query('SELECT * FROM users where email = ?' ,[email],(err,results)=>{
+        if(err) return res.status(500).json({message:err});
+        if(results.length ===0 ) return res.status(400).json({message:"user not found"});
+
+        const user = results[0];
+
+        const token = jwt.sign({user:user.id},process.env.JWT_SECRET);
+
+        return res.status(200).json({token:token,message:"use this token to reset your password"})
+    })
 }
 
 const resetPassword = async(req,res)=>{
-    
+    const {token} = req.params;
+    const {newPassword} = req.body;
+
+   await jwt.verify(token,process.env.JWT_SECRET,(err,decoded)=>{
+        if(err) return res.status(500).json({message:err});
+        
+        const hashedPaswword = bcrypt.hashSync(newPassword,10);
+
+        console.log(hashedPaswword);
+
+        connection.query('UPDATE users set password=? where id = ?',[hashedPaswword,decoded.id],(err,results)=>{
+            if (err) throw err;
+            res.status(200).send('Password reset successful.');
+        })
+
+
+    })
 }
 
 const changePassword = async(req,res)=>{
@@ -55,4 +82,4 @@ const changePassword = async(req,res)=>{
 }
 
 
-module.exports = {login,logout,changePassword}
+module.exports = {login,logout,changePassword,forgotPassword,resetPassword}
