@@ -16,12 +16,8 @@ const register = async(req,res)=>{
         
             bcrypt.hash(password,10,(err,hash)=>{
                 connection.query('INSERT INTO users (firstname,lastname,username,password,email,phone) values(?,?,?,?,?,?)',[firstname,lastname,username,hash,email,phone],(err,result)=>{
-                    if(err) res.status(500).json({message:err});
-
-                   
+                    if(err) res.status(500).json({message:err});         
                     return res.status(201).json({message:"data inserted successfully."})
-
-                    
                 })
             })  
     })
