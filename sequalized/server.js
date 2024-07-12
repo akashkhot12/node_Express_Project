@@ -1,6 +1,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
-require('./models')
+require('./models');
+var userController = require('./controllers/userController')
 const app = express();
 
 app.use(bodyParser.json());
@@ -8,6 +9,8 @@ app.use(bodyParser.json());
 app.get("/", (req, res) => {
   res.send("hello world");
 });
+
+app.get("/add", userController.addUser);
 
 // User.sync({ force: true });
 // Contact.sync({ force: true });

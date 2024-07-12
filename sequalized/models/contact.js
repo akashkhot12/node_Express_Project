@@ -21,8 +21,6 @@ Contact.init(
 );
 
 // the defined model is the class itself
-
-
-
+return Contact;
 }
 

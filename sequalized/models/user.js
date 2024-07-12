@@ -21,9 +21,8 @@ User.init(
 );
 
 // the defined model is the class itself
-console.log(User === sequelize.models.User); // true
-
-
+// console.log(User === sequelize.models.User); // true
+return User;
 }
 
 
