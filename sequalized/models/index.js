@@ -2,6 +2,7 @@ const { Sequelize,DataTypes,Model } = require("sequelize");
 
 const sequelize = new Sequelize("sequal", "postgres", "root", {
   host: "localhost",
+  logging:false,
   dialect: "postgres",
 });
 
