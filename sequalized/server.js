@@ -12,6 +12,8 @@ app.get("/", (req, res) => {
 
 app.get("/add", userController.addUser);
 
+app.get("/users", userController.getUsers)
+
 // User.sync({ force: true });
 // Contact.sync({ force: true });
 // User.drop();
