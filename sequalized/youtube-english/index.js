@@ -4,7 +4,6 @@ const apiRoutes = require("./routes");
 const PORT = 5000;
 const { sequelize, connectToDB } = require("./db");
 
-
 app.use("/api", apiRoutes);
 
 app.get("/", (req, res) => {

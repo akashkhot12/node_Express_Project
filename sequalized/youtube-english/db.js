@@ -8,7 +8,7 @@ const sequelize = new Sequelize("expresstask", "root", "", {
 const connectToDB = async () => {
   try {
     await sequelize.authenticate();
-    console.log("sucessfully connected ");
+    console.log("sucessfully connected. ");
   } catch (error) {
     console.log(error);
   }
