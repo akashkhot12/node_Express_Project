@@ -1,8 +1,11 @@
 const express = require("express");
 const app = express();
-const PORT = 3000
+const PORT = 3000;
 
+app.get("/", (req, res) => {
+  res.status(200).json({ message: "hello world" });
+});
 
-app.listen(PORT,()=>{
-    console.log("server is started on port " +PORT);
-})
+app.listen(PORT, () => {
+  console.log("server is started on port " + PORT);
+});
