@@ -1,7 +1,9 @@
 const express = require("express");
 const router = express.Router();
 
-router.get("/todos", (req, res) => {});
+router.get("/todos", (req, res) => {
+  res.send("hello world testing");
+});
 
 router.post("/todos", (req, res) => {});
 
