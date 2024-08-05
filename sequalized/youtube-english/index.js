@@ -1,6 +1,9 @@
 const express = require("express");
 const app = express();
+const apiRoutes = require("./routes");
 const PORT = 3000;
+
+app.use("/api", apiRoutes);
 
 app.get("/", (req, res) => {
   res.status(200).json({ message: "hello world" });
