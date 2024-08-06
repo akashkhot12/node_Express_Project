@@ -1,11 +1,16 @@
 const express = require("express");
 const router = express.Router();
+const User = require("./models");
 
-router.get("/todos", (req, res) => {
-  res.send("hello world testing");
+router.get("/todos", async (req, res) => {
+  const task = await User.findAll();
+  res.status(200).json(task);
 });
 
-router.post("/todos", (req, res) => {});
+router.post("/todos", async (req, res) => {
+  const data = req.body;
+  res.status(201).json(data);
+});
 
 router.get("/todos/:id", (req, res) => {});
 

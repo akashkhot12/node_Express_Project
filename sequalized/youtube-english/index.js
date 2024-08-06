@@ -3,6 +3,9 @@ const app = express();
 const apiRoutes = require("./routes");
 const PORT = 5000;
 const { sequelize, connectToDB } = require("./db");
+const body_parser = require("body-parser");
+
+app.use(express.json());
 
 app.use("/api", apiRoutes);
 

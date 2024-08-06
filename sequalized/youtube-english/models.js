@@ -1,7 +1,7 @@
 const { sequelize } = require("./db");
 const { DataTypes } = require("sequelize");
 
-sequelize.define("Task", {
+const User = sequelize.define("Task", {
   content: {
     type: DataTypes.STRING,
     validate: {
@@ -13,7 +13,11 @@ sequelize.define("Task", {
   },
   is_complete: {
     type: DataTypes.BOOLEAN,
+    defaultValue:false
   },
 });
 
-sequelize.sync();
+// sequelize.sync();
+
+
+module.exports = User
