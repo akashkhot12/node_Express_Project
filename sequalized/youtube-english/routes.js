@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const User = require("./models");
+const Task = require("./models");
 
 router.get("/todos", async (req, res) => {
   const task = await User.findAll();
@@ -8,8 +8,19 @@ router.get("/todos", async (req, res) => {
 });
 
 router.post("/todos", async (req, res) => {
-  const data = req.body;
-  res.status(201).json(data);
+  const { content, description } = req.body;
+
+  const newTask = await Task.build({
+    'content': content,
+    'description': description,
+  });
+
+  try {
+    await newTask.save();
+    res.status(201).json(newTask);
+  } catch (error) {
+    res.status(400).json(error);
+  }
 });
 
 router.get("/todos/:id", (req, res) => {});
