@@ -3,7 +3,7 @@ const router = express.Router();
 const Task = require("./models");
 
 router.get("/todos", async (req, res) => {
-  const task = await User.findAll();
+  const task = await Task.findAll();
   res.status(200).json(task);
 });
 
@@ -11,8 +11,8 @@ router.post("/todos", async (req, res) => {
   const { content, description } = req.body;
 
   const newTask = await Task.build({
-    'content': content,
-    'description': description,
+    content: content,
+    description: description,
   });
 
   try {
