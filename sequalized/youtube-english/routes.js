@@ -9,7 +9,6 @@ router.get("/todos", async (req, res) => {
 
 router.post("/todos", async (req, res) => {
   const { content, description } = req.body;
-
   const newTask = await Task.build({
     content: content,
     description: description,
@@ -23,7 +22,14 @@ router.post("/todos", async (req, res) => {
   }
 });
 
-router.get("/todos/:id", (req, res) => {});
+router.get("/todos/:id", async (req, res) => {
+  const task = await Task.findOne({
+    where: {
+      id: req.params.id,
+    },
+  });
+  res.status(201).json(task);
+});
 
 router.put("/todos/:id", (req, res) => {});
 
