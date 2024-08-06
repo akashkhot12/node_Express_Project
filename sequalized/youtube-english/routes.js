@@ -31,8 +31,54 @@ router.get("/todos/:id", async (req, res) => {
   res.status(201).json(task);
 });
 
-router.put("/todos/:id", (req, res) => {});
+router.put("/todos/:id", async (req, res) => {
+  const task = await Task.findOne({
+    where: {
+      id: req.params.id,
+    },
+  });
+  const { is_complete, content, description } = req.body;
 
-router.delete("/todos/:id", (req, res) => {});
+  await task.set({
+    is_complete: is_complete,
+    content: content,
+    description: description,
+  });
+
+  await task.save();
+
+  res.status(201).json(task);
+});
+
+router.patch("/todos/:id", async (req, res) => {
+  const task = await Task.findOne({
+    where: {
+      id: req.params.id,
+    },
+  });
+  const { is_complete } = req.body;
+
+  await task.set({
+    is_complete: is_complete,
+  });
+
+  await task.save();
+
+  res.status(201).json(task);
+});
+
+router.delete("/todos/:id", async (req, res) => {
+  const task = await Task.findOne({
+    where: {
+      id: req.params.id,
+    },
+  });
+  try {
+    await task.destroy();
+    res.status(204).json({ message: "deleted" });
+  } catch (error) {
+    res.status(204).json({ message: error });
+  }
+});
 
 module.exports = router;
